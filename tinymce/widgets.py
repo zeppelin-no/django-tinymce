@@ -75,6 +75,9 @@ class TinyMCE(forms.Textarea):
             #if k in mce_config:
                #js_functions[k] = mce_config[k]
                #del mce_config[k]
+        file_browser = ""
+        if "file_browser_callback" in mce_config:
+            file_browser = "_config.file_browser_callback = {};".format(mce_config.pop("file_browser_callback"))
         mce_json = json.dumps(mce_config)
 
         #for k in js_functions:
@@ -85,7 +88,9 @@ class TinyMCE(forms.Textarea):
             html = [u'<div%s>%s</div>' % (flatatt(final_attrs), escape(value))]
         else:
             html = [u'<textarea%s>%s</textarea>' % (flatatt(final_attrs), escape(value))]
-        html.append(u'<script type="text/javascript">tinyMCE.init(%s)</script>' % mce_json)
+        html.append(u'<script type="text/javascript">var _config = {}; {} tinyMCE.init(_config)</script>'.format(
+            mce_json,
+            file_browser))
 
         return mark_safe(u'\n'.join(html))
 
