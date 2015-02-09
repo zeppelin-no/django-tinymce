@@ -20,7 +20,7 @@ Quickstart:
 
 Install django-tinymce:
 
-    $ pip install -e git+https://github.com/zeppelin-no/django-tinymce.git#egg=django-tinymce
+    $ pip install -e git+https://github.com/zeppelin-no/django-tinymce.git@tinymce4#egg=django-tinymce-2.0-dev
 
 Add tinymce to INSTALLED_APPS in settings.py for your project:
 
