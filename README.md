@@ -3,6 +3,14 @@ django-tinymce
 
 **django-tinymce** is a Django application that contains a widget to render a form field as a TinyMCE editor.
 
+file_browser_callback
+===
+Look at the link below to make file_browser_callback work with this version 
+http://pixabay.com/en/blog/posts/direct-image-uploads-in-tinymce-4-42/
+
+=> you have to write your own upload function supported by your backend
+
+
 WARNING:
 ===
 v2.0 uses TinyMCE v4.x and is not backwards compatible w/ previous versions.
@@ -12,7 +20,7 @@ Quickstart:
 
 Install django-tinymce:
 
-    $ pip install django-tinymce
+    $ pip install -e git+https://github.com/zeppelin-no/django-tinymce.git#egg=django-tinymce
 
 Add tinymce to INSTALLED_APPS in settings.py for your project:
 
@@ -30,23 +38,21 @@ Add tinymce.urls to urls.py for your project:
 
 In your code:
 
-    from django.db import models
-    from tinymce.models import HTMLField
-
-    class MyModel(models.Model):
-        ...
-        content = HTMLField()
+    # Python:
+        forms.CharField(widget=TinyMCE(attrs={...}, mce_attrs={'file_browser_callback': 'file_browser_function'}))
+        
+    // JavaScript:
+    <script>
+    function file_browser_function(field_name, url, type, win) {
+        ....
+    }
+    </script>
 
 **django-tinymce** uses staticfiles so everything should work as expected, different use cases (like using widget instead of HTMLField) and other stuff is available in documentation.
 
 Documentation:
 ===
 http://django-tinymce.readthedocs.org/
-
-Support and updates:
-===
-You can contact me directly at aljosa.mohorovic@gmail.com, track updates at https://twitter.com/maljosa or use github issues.
-Be persistent and bug me, I often find myself lost in time so ping me if you're still waiting for me to answer.
 
 License (and related information):
 ===
